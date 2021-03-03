@@ -1,16 +1,29 @@
 import { TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { calculateTotalCost } from "./utils/calculateTotalCost";
+import { willSomeCornBeLost } from "./utils/willSomeCornBeLost";
 
 function App() {
 
   const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState(0)
-  
+  const [numberOfGeese, setNumberOfGeese] = useState(0)
+  const [willCornBeLost, setWillCornBeLost] = useState(false);
+
+  useEffect(() => {
+    setWillCornBeLost(willSomeCornBeLost(numberOfBagsOfCorn, numberOfGeese));
+  }, [numberOfBagsOfCorn, numberOfGeese])
+
   const updatedNumberOfBagsOfCorn = (event: React.ChangeEvent<HTMLInputElement>) => {
     const bagsOfCorn = Number(event.target.value);
     if(bagsOfCorn < 0) return
     setNumberOfBagsOfCorn(bagsOfCorn)
+  }
+  
+  const updatedNumberOfGeese = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const geese = Number(event.target.value);
+    if(geese < 0) return
+    setNumberOfGeese(geese)
   }
 
   return (
@@ -22,7 +35,15 @@ function App() {
         onChange={updatedNumberOfBagsOfCorn}
         value={numberOfBagsOfCorn}
       />
-      <p data-testid="total-cost">This is the total cost of taking corn to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn)}</p>
+      <TextField 
+        label="Geese"
+        type="number"
+        placeholder="number of geese"
+        onChange={updatedNumberOfGeese}
+        value={numberOfGeese}
+      />
+      <p data-testid="total-cost">This is the total cost of taking corn and geese to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</p>
+      {willCornBeLost ? <p>"Warning: Geese will eat your corn!"</p>: null}
     </AppContainer>
   );
 }
