@@ -14,5 +14,3 @@ describe('CalculateTotalCost', () => {
         expect(calculateTotalCost(10)).toBe("5.00");
     })
 })
-
-export {}
