@@ -13,6 +13,14 @@ function App() {
     setNumberOfBagsOfCorn(bagsOfCorn)
   }
 
+  const [numberOfGeese, setNumberOfGeese] = useState(0)
+  
+  const updatedNumberOfGeese = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const geese = Number(event.target.value);
+    if(geese < 0) return
+    setNumberOfGeese(geese)
+  }
+
   return (
     <AppContainer>
       <TextField 
@@ -22,7 +30,14 @@ function App() {
         onChange={updatedNumberOfBagsOfCorn}
         value={numberOfBagsOfCorn}
       />
-      <p data-testid="total-cost">This is the total cost of taking corn to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn)}</p>
+      <TextField 
+        label="Geese"
+        type="number"
+        placeholder="number of geese"
+        onChange={updatedNumberOfGeese}
+        value={numberOfGeese}
+      />
+      <p data-testid="total-cost">This is the total cost of taking corn and geese to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</p>
     </AppContainer>
   );
 }
