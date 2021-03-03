@@ -6,7 +6,7 @@ export const willSomeCornBeLost = (numberOfBagsOfCorn: number, numberOfGeese: nu
         return true;
       }
   
-      if (numberOfBagsOfCorn == 1 && numberOfGeese > 1) {
+      if (numberOfBagsOfCorn === 1 && numberOfGeese > 1) {
         return true;
       }
     }
