@@ -22,7 +22,7 @@ function App() {
         onChange={updatedNumberOfBagsOfCorn}
         value={numberOfBagsOfCorn}
       />
-      <p>This is the total cost of taking corn to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn)}</p>
+      <p data-testid="total-cost">This is the total cost of taking corn to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn)}</p>
     </AppContainer>
   );
 }
