@@ -8,10 +8,15 @@ function App() {
 
   const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState(0)
   const [numberOfGeese, setNumberOfGeese] = useState(0)
+  const [numberOfExtraCrossings, setNumberOfExtraCrossings] = useState(0)
+  const [instructions, setInstructions] = useState('');
   const [willCornBeLost, setWillCornBeLost] = useState(false);
 
   useEffect(() => {
-    setWillCornBeLost(willSomeCornBeLost(numberOfBagsOfCorn, numberOfGeese));
+    const result = willSomeCornBeLost(numberOfBagsOfCorn, numberOfGeese);
+    setWillCornBeLost(result.losingCorn);
+    setNumberOfExtraCrossings(result.extraTrips);
+    setInstructions(result.instructions);
   }, [numberOfBagsOfCorn, numberOfGeese])
 
   const updatedNumberOfBagsOfCorn = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,8 +52,8 @@ function App() {
         />
       </InputContainer>
       <p>Total cost of going to market is:</p>
-      <CalculatedCost data-testid="total-cost">£{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</CalculatedCost>
-      {willCornBeLost ? <Warning>Geese will eat your corn!</Warning>: null}
+      <CalculatedCost data-testid="total-cost">£{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese + numberOfExtraCrossings)}</CalculatedCost>
+      {willCornBeLost ? <Warning>Geese will eat your corn!</Warning>: instructions === '' ? null : <p>{instructions}</p>}
     </AppContainer>
   );
 }
