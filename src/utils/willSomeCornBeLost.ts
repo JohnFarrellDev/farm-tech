@@ -4,6 +4,26 @@ export const willSomeCornBeLost = makePairEvaluator('bag', 'goose');
 
 export const willSomeGeeseBeLost = makePairEvaluator('goose', 'fox');
 
+export function willSomeCornOrGeeseBeLost(numberOfBags: number, numberOfGeese: number, numberofFoxes: number) {
+  if (numberofFoxes === 0) {
+    return willSomeCornBeLost(numberOfBags, numberOfGeese);
+  }
+
+  if (numberOfBags === 0) {
+    return willSomeGeeseBeLost(numberOfGeese, numberofFoxes);
+  }
+
+  if (numberOfGeese === 0) {
+    return {losingSome: false, extraTrips: 0, instructions: ''};  
+  }
+
+  if (numberOfBags === 1 && numberOfGeese === 1 && numberofFoxes === 1) {
+    return {losingSome: false, extraTrips: 1, instructions: 'Take the goose first, then the foxe, bring the goose BACK, then take the bag, then go back and get the goose'};
+  }
+
+  return {losingSome: true, extraTrips: 0, instructions: ''};
+}
+
 function makePairEvaluator(nonEaterName: string, eaterName: string) {
   
   return function (numberOfNonEaters: number, numberOfEaters: number) {
