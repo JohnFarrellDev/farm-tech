@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const result = willSomeCornBeLost(Number(numberOfBagsOfCorn), Number(numberOfGeese));
-    setWillCornBeLost(result.losingCorn);
+    setWillCornBeLost(result.losingSome);
     setNumberOfExtraCrossings(result.extraTrips);
     setInstructions(result.instructions);
   }, [numberOfBagsOfCorn, numberOfGeese])
@@ -52,7 +52,7 @@ function App() {
         numberOfGeese={numberOfGeese}
       />
       <DisplayCost 
-        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + Number(numberOfExtraCrossings)}
+        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + numberOfExtraCrossings}
       />
       {/* should have string arrays to pass in via variables once other work completed */}
       {willCornBeLost ? <WarningDisplay warnings={["Geese will eat corn"]} /> : null}
