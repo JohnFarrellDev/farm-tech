@@ -65,7 +65,7 @@ function App() {
         numberOfFoxes={numberOfFoxes}
       />
       <DisplayCost 
-        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + numberOfExtraCrossings}
+        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + Number(numberOfFoxes) + numberOfExtraCrossings}
       />
       {/* should have string arrays to pass in via variables once other work completed */}
       {willCornBeLost ? <WarningDisplay warnings={["Geese will eat Corn or Foxes will eat Geese"]} /> : null}
