@@ -1,19 +1,21 @@
-import { TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { calculateTotalCost } from "./utils/calculateTotalCost";
+import { InputControls } from "./components/InputControls";
+import { DisplayCost } from "./components/DisplayCost";
+import { WarningDisplay } from "./components/WarningDisplay";
+import { InformationDisplay } from "./components/InformationDisplay"
 import { willSomeCornBeLost } from "./utils/willSomeCornBeLost";
 
 function App() {
 
-  const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState(0)
-  const [numberOfGeese, setNumberOfGeese] = useState(0)
+  const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState("0")
+  const [numberOfGeese, setNumberOfGeese] = useState("0")
   const [numberOfExtraCrossings, setNumberOfExtraCrossings] = useState(0)
   const [instructions, setInstructions] = useState('');
   const [willCornBeLost, setWillCornBeLost] = useState(false);
 
   useEffect(() => {
-    const result = willSomeCornBeLost(numberOfBagsOfCorn, numberOfGeese);
+    const result = willSomeCornBeLost(Number(numberOfBagsOfCorn), Number(numberOfGeese));
     setWillCornBeLost(result.losingSome);
     setNumberOfExtraCrossings(result.extraTrips);
     setInstructions(result.instructions);
@@ -21,39 +23,40 @@ function App() {
 
   const updatedNumberOfBagsOfCorn = (event: React.ChangeEvent<HTMLInputElement>) => {
     const bagsOfCorn = Number(event.target.value);
-    if(bagsOfCorn < 0) return
-    setNumberOfBagsOfCorn(bagsOfCorn)
+
+    if(Number.isNaN(bagsOfCorn) || bagsOfCorn === 0 || bagsOfCorn < 0) {
+      setNumberOfBagsOfCorn("");
+    } else {
+      setNumberOfBagsOfCorn(event.target.value)
+    }
   }
   
   const updatedNumberOfGeese = (event: React.ChangeEvent<HTMLInputElement>) => {
     const geese = Number(event.target.value);
-    if(geese < 0) return
-    setNumberOfGeese(geese)
+    
+    if(Number.isNaN(geese) || geese === 0 || geese < 0) {
+      setNumberOfGeese("");
+    } else {
+      setNumberOfGeese(event.target.value)
+    }
   }
 
   return (
     <AppContainer>
       <Title>Journey Cost Calculator</Title>
-      <SubTitle>Items to Bring to Market:</SubTitle>
-      <InputContainer>
-        <StyledTextField 
-          label="Bags of Corn"
-          type="number"
-          placeholder="number of bags of corn"
-          onChange={updatedNumberOfBagsOfCorn}
-          value={numberOfBagsOfCorn}
-        />
-        <StyledTextField 
-          label="Geese"
-          type="number"
-          placeholder="number of geese"
-          onChange={updatedNumberOfGeese}
-          value={numberOfGeese}
-        />
-      </InputContainer>
-      <p>Total cost of going to market is:</p>
-      <CalculatedCost data-testid="total-cost">£{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese + numberOfExtraCrossings)}</CalculatedCost>
-      {willCornBeLost ? <Warning>Geese will eat your corn!</Warning>: instructions === '' ? null : <p>{instructions}</p>}
+      <Subheading>Items to Bring to Market:</Subheading>
+      <InputControls 
+        updatedNumberOfBagsOfCorn={updatedNumberOfBagsOfCorn}
+        numberOfBagsOfCorn={numberOfBagsOfCorn}
+        updatedNumberOfGeese={updatedNumberOfGeese}
+        numberOfGeese={numberOfGeese}
+      />
+      <DisplayCost 
+        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + numberOfExtraCrossings}
+      />
+      {/* should have string arrays to pass in via variables once other work completed */}
+      {willCornBeLost ? <WarningDisplay warnings={["Geese will eat corn"]} /> : null}
+      {instructions ? <InformationDisplay information={[instructions]} /> : null}
     </AppContainer>
   );
 }
@@ -67,16 +70,10 @@ const Title = styled.h1`
   margin: 20px 0px;
 `
 
-const SubTitle = styled.h2`
+const Subheading = styled.h2`
   font-size: 1.5em;
   text-align: center;
   margin: 10px 0px;
-`
-
-const CalculatedCost = styled.p`
-  font-size: 3em;
-  margin: 0;
-  color: #B10DC9;
 `
 
 const AppContainer = styled.div`
@@ -101,46 +98,4 @@ const AppContainer = styled.div`
   p {
     text-align: center;
   }
-`
-
-const InputContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  div:first-child {
-    margin-right: 5px;
-  }
-
-  div:last-child {
-    margin-left: 5px;
-  }
-`
-
-const StyledTextField = styled(TextField)`
-  && {
-    max-width: 250px;
-    width: 40%;
-
-    input {
-      font-size: 2em;
-      color: black;
-    }
-
-    label {
-      font-size: 1.5em;
-      color: black;
-
-      @media (max-width: 550px) {
-        font-size: 1em;
-      }
-    }
-  }
-`
-
-const Warning = styled.p`
-  background-color: #f2dede;
-  color: #a94442;
-  padding: 15px;
-  border-radius: 6px;
 `

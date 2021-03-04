@@ -1,7 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
-import { calculateTotalCost } from './utils/calculateTotalCost';
 
 describe("App.tsx", () => {
   it("should render", () => {
@@ -14,7 +13,7 @@ describe("App.tsx", () => {
     let calculatedCost = component.getByTestId("total-cost");
     expect(calculatedCost.textContent?.includes("£0.00")).toBeTruthy();
 
-    const inputElement = component.getByPlaceholderText("number of bags of corn");
+    const inputElement = component.getByPlaceholderText("Corn");
     fireEvent.change(inputElement, { target: { value: '10' }})
     calculatedCost = component.getByTestId("total-cost");
     expect(calculatedCost.textContent?.includes("£5.00")).toBeTruthy();
