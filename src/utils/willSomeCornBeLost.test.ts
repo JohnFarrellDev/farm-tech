@@ -13,15 +13,19 @@ describe ("Will some corn be lost", () => {
         expect(willSomeCornBeLost(1,1)).toBeFalsy();
     })
 
-    it('One goose with many bags is not ok', () => {
-        expect(willSomeCornBeLost(2, 1)).toBeTruthy();
+    it('One goose with 2 bags is ok', () => {
+        expect(willSomeCornBeLost(2, 1)).toBeFalsy();
     })
 
-    it ('One bag is many geese is not ok', () => {
+    it('One goose with many bags is not ok', () => {
+        expect(willSomeCornBeLost(3, 1)).toBeTruthy();
+    })
+
+    it ('One bag with many geese is not ok', () => {
         expect(willSomeCornBeLost(1, 2)).toBeTruthy();
     })
 
-    it ('Many of eachis not ok', () => {
+    it ('Many of each is not ok', () => {
         expect(willSomeCornBeLost(2,2)).toBeTruthy();
     })
 })

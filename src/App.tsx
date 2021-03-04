@@ -8,6 +8,7 @@ function App() {
 
   const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState(0)
   const [numberOfGeese, setNumberOfGeese] = useState(0)
+  const [numberOfExtraCrossings, setNumberOfExtraCrossings] = useState(0)
   const [willCornBeLost, setWillCornBeLost] = useState(false);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function App() {
         onChange={updatedNumberOfGeese}
         value={numberOfGeese}
       />
-      <p data-testid="total-cost">This is the total cost of taking corn and geese to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</p>
+      <p data-testid="total-cost">This is the total cost of taking corn and geese to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese + numberOfExtraCrossings)}</p>
       {willCornBeLost ? <p>"Warning: Geese will eat your corn!"</p>: null}
     </AppContainer>
   );
