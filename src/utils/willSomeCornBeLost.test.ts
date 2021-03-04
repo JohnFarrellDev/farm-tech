@@ -2,26 +2,50 @@ import { willSomeCornBeLost } from "./willSomeCornBeLost"
 
 describe ("Will some corn be lost", () => {
     it('No geese is ok', () => {
-        expect(willSomeCornBeLost(99,0)).toBeFalsy();
+        const result = willSomeCornBeLost(99,0);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(0);
     })
 
     it('No corn is ok', () => {
-        expect(willSomeCornBeLost(0, 99)).toBeFalsy();
+        const result = willSomeCornBeLost(0,99);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(0);
     })
 
     it('One of each is ok', () => {
-        expect(willSomeCornBeLost(1,1)).toBeFalsy();
+        const result = willSomeCornBeLost(1,1);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(0);
+    })
+
+    it('One goose with 2 bags is ok but needs an extra crossing', () => {
+        const result = willSomeCornBeLost(2,1);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(1);
     })
 
     it('One goose with many bags is not ok', () => {
-        expect(willSomeCornBeLost(2, 1)).toBeTruthy();
+        const result = willSomeCornBeLost(3,1);
+        expect(result.losingCorn).toBeTruthy();
+        expect(result.extraTrips).toBe(0);
     })
 
-    it ('One bag is many geese is not ok', () => {
-        expect(willSomeCornBeLost(1, 2)).toBeTruthy();
+    it ('One bag with 2 geese is ok but needs an extra crossing', () => {
+        const result = willSomeCornBeLost(1,2);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(1);
     })
 
-    it ('Many of eachis not ok', () => {
-        expect(willSomeCornBeLost(2,2)).toBeTruthy();
+    it ('One bag with many geese is not ok', () => {
+        const result = willSomeCornBeLost(1,3);
+        expect(result.losingCorn).toBeTruthy();
+        expect(result.extraTrips).toBe(0);
+    })
+
+    it ('Many of each is not ok', () => {
+        const result = willSomeCornBeLost(2,2);
+        expect(result.losingCorn).toBeTruthy();
+        expect(result.extraTrips).toBe(0);
     })
 })
