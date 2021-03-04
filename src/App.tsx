@@ -4,22 +4,23 @@ import { InputControls } from "./components/InputControls";
 import { DisplayCost } from "./components/DisplayCost";
 import { WarningDisplay } from "./components/WarningDisplay";
 import { InformationDisplay } from "./components/InformationDisplay"
-import { willSomeCornBeLost } from "./utils/willSomeCornBeLost";
+import { willSomeCornOrGeeseBeLost } from "./utils/willSomeCornBeLost";
 
 function App() {
 
   const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState("0")
   const [numberOfGeese, setNumberOfGeese] = useState("0")
+  const [numberOfFoxes, setNumberOfFoxes] = useState("0")
   const [numberOfExtraCrossings, setNumberOfExtraCrossings] = useState(0)
-  const [instructions, setInstructions] = useState('');
+  const [instructions, setInstructions] = useState<string[]>([]);
   const [willCornBeLost, setWillCornBeLost] = useState(false);
 
   useEffect(() => {
-    const result = willSomeCornBeLost(Number(numberOfBagsOfCorn), Number(numberOfGeese));
+    const result = willSomeCornOrGeeseBeLost(Number(numberOfBagsOfCorn), Number(numberOfGeese), Number(numberOfFoxes));
     setWillCornBeLost(result.losingSome);
     setNumberOfExtraCrossings(result.extraTrips);
     setInstructions(result.instructions);
-  }, [numberOfBagsOfCorn, numberOfGeese])
+  }, [numberOfBagsOfCorn, numberOfGeese, numberOfFoxes])
 
   const updatedNumberOfBagsOfCorn = (event: React.ChangeEvent<HTMLInputElement>) => {
     const bagsOfCorn = Number(event.target.value);
@@ -41,6 +42,16 @@ function App() {
     }
   }
 
+  const updatedNumberOfFoxes = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const foxes = Number(event.target.value);
+    
+    if(Number.isNaN(foxes) || foxes === 0 || foxes < 0) {
+      setNumberOfFoxes("");
+    } else {
+      setNumberOfFoxes(event.target.value)
+    }
+  }
+
   return (
     <AppContainer>
       <Title>Journey Cost Calculator</Title>
@@ -50,13 +61,15 @@ function App() {
         numberOfBagsOfCorn={numberOfBagsOfCorn}
         updatedNumberOfGeese={updatedNumberOfGeese}
         numberOfGeese={numberOfGeese}
+        updatedNumberOfFoxes={updatedNumberOfFoxes}
+        numberOfFoxes={numberOfFoxes}
       />
       <DisplayCost 
         numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + numberOfExtraCrossings}
       />
       {/* should have string arrays to pass in via variables once other work completed */}
-      {willCornBeLost ? <WarningDisplay warnings={["Geese will eat corn"]} /> : null}
-      {instructions ? <InformationDisplay information={[instructions]} /> : null}
+      {willCornBeLost ? <WarningDisplay warnings={["Geese will eat Corn or Foxes will eat Geese"]} /> : null}
+      {instructions.length > 0 ? <InformationDisplay information={instructions} /> : null}
     </AppContainer>
   );
 }
