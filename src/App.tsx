@@ -28,30 +28,114 @@ function App() {
 
   return (
     <AppContainer>
-      <TextField 
-        label="Bags of corn"
-        type="number"
-        placeholder="number of bags of corn"
-        onChange={updatedNumberOfBagsOfCorn}
-        value={numberOfBagsOfCorn}
-      />
-      <TextField 
-        label="Geese"
-        type="number"
-        placeholder="number of geese"
-        onChange={updatedNumberOfGeese}
-        value={numberOfGeese}
-      />
-      <p data-testid="total-cost">This is the total cost of taking corn and geese to market and coming home again: £{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</p>
-      {willCornBeLost ? <p>"Warning: Geese will eat your corn!"</p>: null}
+      <Title>Journey Cost Calculator</Title>
+      <SubTitle>Items to Bring to Market:</SubTitle>
+      <InputContainer>
+        <StyledTextField 
+          label="Bags of Corn"
+          type="number"
+          placeholder="number of bags of corn"
+          onChange={updatedNumberOfBagsOfCorn}
+          value={numberOfBagsOfCorn}
+        />
+        <StyledTextField 
+          label="Geese"
+          type="number"
+          placeholder="number of geese"
+          onChange={updatedNumberOfGeese}
+          value={numberOfGeese}
+        />
+      </InputContainer>
+      <p>Total cost of going to market is:</p>
+      <CalculatedCost data-testid="total-cost">£{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese)}</CalculatedCost>
+      {willCornBeLost ? <Warning>Geese will eat your corn!</Warning>: null}
     </AppContainer>
   );
 }
 
 export default App;
 
+const Title = styled.h1`
+  text-decoration: underline;
+  font-size: 2em;
+  text-align: center;
+  margin: 20px 0px;
+`
+
+const SubTitle = styled.h2`
+  font-size: 1.5em;
+  text-align: center;
+  margin: 10px 0px;
+`
+
+const CalculatedCost = styled.p`
+  font-size: 3em;
+  margin: 0;
+  color: #B10DC9;
+`
+
 const AppContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #228B22;
+  width: 80%;
+  max-width: 800px;
+  height: 100vh;
+
+  @media (max-width: 300px) {
+    width: 100%;
+  }
+
+  div {
+    margin: 10px 0px;
+  }
+
+  p {
+    text-align: center;
+  }
+`
+
+const InputContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #67e65c;
+
+  div:first-child {
+    margin-right: 5px;
+  }
+
+  div:last-child {
+    margin-left: 5px;
+  }
+`
+
+const StyledTextField = styled(TextField)`
+  && {
+    max-width: 250px;
+    width: 40%;
+
+    input {
+      font-size: 2em;
+      color: black;
+    }
+
+    label {
+      font-size: 1.5em;
+      color: black;
+
+      @media (max-width: 550px) {
+        font-size: 1em;
+      }
+    }
+  }
+`
+
+const Warning = styled.p`
+  background-color: #f2dede;
+  color: #a94442;
+  padding: 15px;
+  border-radius: 6px;
 `
