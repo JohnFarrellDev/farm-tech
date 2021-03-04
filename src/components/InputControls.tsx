@@ -6,13 +6,17 @@ interface InputControlsI {
   numberOfBagsOfCorn: string;
   updatedNumberOfGeese: (event: React.ChangeEvent<HTMLInputElement>) => void;
   numberOfGeese: string;
+  updatedNumberOfFoxes: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  numberOfFoxes: string;
 }
 
 export const InputControls = ({
   updatedNumberOfBagsOfCorn, 
   numberOfBagsOfCorn, 
   updatedNumberOfGeese, 
-  numberOfGeese
+  numberOfGeese,
+  updatedNumberOfFoxes,
+  numberOfFoxes
 }: InputControlsI) => (
   <InputContainer>
       <StyledTextField 
@@ -31,6 +35,16 @@ export const InputControls = ({
         placeholder="Geese"
         onChange={updatedNumberOfGeese}
         value={numberOfGeese}
+        inputProps={{
+          min: 0
+        }}
+      />
+      <StyledTextField 
+        label="Foxes"
+        type="number"
+        placeholder="Foxes"
+        onChange={updatedNumberOfFoxes}
+        value={numberOfFoxes}
         inputProps={{
           min: 0
         }}
