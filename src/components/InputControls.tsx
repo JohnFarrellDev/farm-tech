@@ -20,7 +20,7 @@ export const InputControls = ({
 }: InputControlsI) => (
   <InputContainer>
       <StyledTextField 
-        label="Bags of Corn"
+        label="Corn"
         type="number"
         placeholder="Corn"
         onChange={updatedNumberOfBagsOfCorn}

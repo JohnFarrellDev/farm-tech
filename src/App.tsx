@@ -8,9 +8,9 @@ import { willSomeCornOrGeeseBeLost } from "./utils/willSomeCornBeLost";
 
 function App() {
 
-  const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState("0")
-  const [numberOfGeese, setNumberOfGeese] = useState("0")
-  const [numberOfFoxes, setNumberOfFoxes] = useState("0")
+  const [numberOfBagsOfCorn, setNumberOfBagsOfCorn] = useState("")
+  const [numberOfGeese, setNumberOfGeese] = useState("")
+  const [numberOfFoxes, setNumberOfFoxes] = useState("")
   const [numberOfExtraCrossings, setNumberOfExtraCrossings] = useState(0)
   const [instructions, setInstructions] = useState<string[]>([]);
   const [willCornBeLost, setWillCornBeLost] = useState(false);
@@ -65,9 +65,8 @@ function App() {
         numberOfFoxes={numberOfFoxes}
       />
       <DisplayCost 
-        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + numberOfExtraCrossings}
+        numberOfItems={Number(numberOfBagsOfCorn) + Number(numberOfGeese) + Number(numberOfFoxes) + numberOfExtraCrossings}
       />
-      {/* should have string arrays to pass in via variables once other work completed */}
       {willCornBeLost ? <WarningDisplay warnings={["Geese will eat Corn or Foxes will eat Geese"]} /> : null}
       {instructions.length > 0 ? <InformationDisplay information={instructions} /> : null}
     </AppContainer>
