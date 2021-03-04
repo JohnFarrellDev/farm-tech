@@ -2,6 +2,8 @@
 // TODO: not yet handling decimal inputs
 export const willSomeCornBeLost = makePairEvaluator('bag', 'goose');
 
+export const willSomeGeeseBeLost = makePairEvaluator('goose', 'fox');
+
 function makePairEvaluator(nonEaterName: string, eaterName: string) {
   
   return function (numberOfNonEaters: number, numberOfEaters: number) {
