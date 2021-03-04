@@ -92,13 +92,12 @@ const AppContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   align-items: center;
   background-color: #228B22;
   width: 80%;
   max-width: 800px;
   height: 100vh;
-
+  overflow-y: auto;
   @media (max-width: 300px) {
     width: 100%;
   }
