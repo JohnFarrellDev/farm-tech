@@ -5,13 +5,6 @@ export const willSomeCornBeLost = (numberOfBagsOfCorn: number, numberOfGeese: nu
       return {losingCorn: false, extraTrips: 0, instructions: ''};
     }
     else {
-      if (numberOfBagsOfCorn > 2) {
-        return {losingCorn: true, extraTrips: 0, instructions: ''};
-      }
-  
-      if (numberOfBagsOfCorn > 0 && numberOfGeese > 1) {
-        return {losingCorn: true, extraTrips: 0, instructions: ''};
-      }
   
       if (numberOfBagsOfCorn === 1 && numberOfGeese === 1) {
         return {losingCorn: false, extraTrips: 0, instructions: 'Take the goose across first.'};
@@ -19,6 +12,18 @@ export const willSomeCornBeLost = (numberOfBagsOfCorn: number, numberOfGeese: nu
   
       if (numberOfBagsOfCorn === 2 && numberOfGeese === 1) {
         return {losingCorn: false, extraTrips: 1, instructions: 'Take the goose across first, then the first bag, then take the goose BACK and leave it on the near bank while you take the second bag, then go back for the goose.'};
+      }
+  
+      if (numberOfBagsOfCorn === 1 && numberOfGeese === 2) {
+        return {losingCorn: false, extraTrips: 1, instructions: 'Take the bag across first, then the first goose, then take the bag BACK and leave it on the near bank while you take the second goose, then go back for the bag.'};
+      }
+      
+      if (numberOfBagsOfCorn > 2) {
+        return {losingCorn: true, extraTrips: 0, instructions: ''};
+      }
+  
+      if (numberOfBagsOfCorn > 0 && numberOfGeese > 1) {
+        return {losingCorn: true, extraTrips: 0, instructions: ''};
       }
 
       return {losingCorn: false, extraTrips: 0, instructions: ''};

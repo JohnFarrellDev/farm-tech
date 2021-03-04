@@ -31,8 +31,14 @@ describe ("Will some corn be lost", () => {
         expect(result.extraTrips).toBe(0);
     })
 
-    it ('One bag with many geese is not ok', () => {
+    it ('One bag with 2 geese is ok but needs an extra crossing', () => {
         const result = willSomeCornBeLost(1,2);
+        expect(result.losingCorn).toBeFalsy();
+        expect(result.extraTrips).toBe(1);
+    })
+
+    it ('One bag with many geese is not ok', () => {
+        const result = willSomeCornBeLost(1,3);
         expect(result.losingCorn).toBeTruthy();
         expect(result.extraTrips).toBe(0);
     })
