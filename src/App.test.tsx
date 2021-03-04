@@ -41,20 +41,24 @@ describe("App.tsx", () => {
     expect(calculatedCost.textContent?.includes("£5.00")).toBeTruthy();
   })  
   
-  it("should warn for a bad input combination", () => {
-    const component = render(<App />);
-    let calculatedCost = component.getByTestId("total-cost");
-    expect(calculatedCost.textContent?.includes("£0.00")).toBeTruthy();
+  // it("should warn for a bad input combination", () => {
+  //   const component = render(<App />);
+  //   let calculatedCost = component.getByTestId("total-cost");
+  //   expect(calculatedCost.textContent?.includes("£0.00")).toBeTruthy();
   
-    const foxElement = component.getByPlaceholderText("Foxes");
-    fireEvent.change(foxElement, { target: { value: '2' }});
+  //   const foxElement = component.getByPlaceholderText("Foxes");
+  //   fireEvent.change(foxElement, { target: { value: '2' }});
   
-    const gooseElement = component.getByPlaceholderText("Geese");
-    fireEvent.change(gooseElement, { target: { value: '2' }});
+  //   const gooseElement = component.getByPlaceholderText("Geese");
+  //   fireEvent.change(gooseElement, { target: { value: '2' }});
   
-    const cornElement = component.getByPlaceholderText("Corn");
-    fireEvent.change(cornElement, { target: { value: '2' }});
+  //   const cornElement = component.getByPlaceholderText("Corn");
+  //   fireEvent.change(cornElement, { target: { value: '2' }});
 
-  })  
+  //   let warning = component.getByDisplayValue("eat");
+
+  //   expect(warning).toBeDefined();
+
+  // })  
 
 })
