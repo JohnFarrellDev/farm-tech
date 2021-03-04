@@ -53,7 +53,7 @@ function App() {
       </InputContainer>
       <p>Total cost of going to market is:</p>
       <CalculatedCost data-testid="total-cost">£{calculateTotalCost(numberOfBagsOfCorn + numberOfGeese + numberOfExtraCrossings)}</CalculatedCost>
-      {willCornBeLost ? <p><em>Warning: Geese will eat your corn!</em></p>: instructions === '' ? null : <p>{instructions}</p>}
+      {willCornBeLost ? <Warning>Geese will eat your corn!</Warning>: instructions === '' ? null : <p>{instructions}</p>}
     </AppContainer>
   );
 }
