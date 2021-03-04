@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     const result = willSomeCornBeLost(numberOfBagsOfCorn, numberOfGeese);
-    setWillCornBeLost(result.losingCorn);
+    setWillCornBeLost(result.losingSome);
     setNumberOfExtraCrossings(result.extraTrips);
     setInstructions(result.instructions);
   }, [numberOfBagsOfCorn, numberOfGeese])
